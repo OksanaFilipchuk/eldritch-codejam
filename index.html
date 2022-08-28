@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="ancients">
+        <img class = "ancients-img" id = "azathoth" src="./assets/Ancients/Azathoth.png" alt="">        
+        <img class = "ancients-img" id = "cthulhu" src="./assets/Ancients/Cthulthu.png" alt="">
+        <img class = "ancients-img" id = "iogSothoth" src="./assets/Ancients/IogSothoth.png" alt="">        
+        <img class = "ancients-img" id = "shubNiggurath" src="./assets/Ancients/ShubNiggurath.png" alt="">
+    </div>
+    <div class="levels">
+        <button class = "button button-level active" id = "veryEasy">very easy</button>
+        <button class = "button button-level" id = "easy">easy</button>
+        <button class = "button button-level" id = "normal">normal</button>
+        <button class = "button button-level" id = "hard">hard</button>
+        <button class = "button button-level" id = "veryHard"> very hard</button>
+    </div>
+    <div class="cards">
+        <button class = "button shuffle nonvisible">shuffle the cards</button>
+        <img class = "cardBackground nonvisible cardsDeck" src="./assets/mythicCardBackground.png">
+        <img class = "cardBackground nonvisible nextCard" src="./assets/mythicCardBackground.png" alt="">
+        <div class="counter">
+            <h4>Stage 1</h4>
+            <ul class = "stage1">
+                <li class = "colorCardsNumber greenCards"></li>
+                <li class = "colorCardsNumber brownCards"></li>
+                <li class = "colorCardsNumber blueCards"></li>
+            </ul>
+            <h4>Stage 2</h4>
+            <ul class = "stage2">
+                <li class = "colorCardsNumber greenCards"></li>
+                <li class = "colorCardsNumber brownCards"></li>
+                <li class = "colorCardsNumber blueCards"></li>
+            </ul>
+            <h4>Stage 3</h4>
+            <ul class = "stage3">
+                <li class = "colorCardsNumber greenCards"></li>
+                <li class = "colorCardsNumber brownCards"></li>
+                <li class = "colorCardsNumber blueCards"></li>
+            </ul>
+            
+        </div>
+    </div>
+    <script type = "module" src="./index.js" ></script>
+    
+</body>
+</html>

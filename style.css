@@ -1,0 +1,111 @@
+body {
+  background-image: url("./assets/home.png");
+  background-size: cover;
+  display: flex;
+  padding: 10px;
+}
+
+.ancients {
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  row-gap: 20px;
+}
+
+.ancients-img {
+  max-width: 35%;
+  height: auto;
+  transition: all 300ms ease-in-out;
+  border: 2px solid transparent;
+}
+
+.ancients-img:hover {
+  transform: scale(1.15);
+}
+
+.ancients-img.active {
+  border: 2px solid red;
+  transform: scale(1.15)
+}
+
+.levels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-width: 10%;
+} 
+
+button {
+  min-width: 80px;
+  min-height: 30px;
+  background-color: azure;
+  border: none;
+  transition: all 300ms ease-in-out;
+}
+
+button:hover {
+  background-color: brown;
+}
+
+button.active {
+  background-color: brown;
+  border: 2px solid rgb(31, 6, 6, 0.8);
+  
+}
+.nonvisible {
+  opacity: 0;
+}
+
+.cardBackground{
+  display: block;
+  max-width: 150px;
+  border: 2px solid red;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 30px;
+  min-width: 30%;
+}
+
+.colorCardsNumber {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  list-style: none;
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+  
+}
+
+.greenCards {
+  background-color: rgb(1, 111, 1);
+}
+
+.blueCards {
+  background-color: rgb(14, 129, 192);
+}
+
+.brownCards {
+  background-color: rgb(79, 44, 44);
+}
+
+h4 {
+  display: inline;
+  color: white;
+  font-size: 18px;
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+
