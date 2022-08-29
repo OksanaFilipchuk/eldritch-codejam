@@ -1,3 +1,4 @@
+
 const shuffleButton = document.querySelector('.shuffle');
 const ancients = document.querySelectorAll(".ancients-img");
 const levels = document.querySelectorAll(".button-level")
@@ -546,5 +547,4 @@ function showNextCard(){
 
 shuffleButton.addEventListener("click", shuffleCards)
 document.querySelector(".cardsDeck").addEventListener("click", showNextCard)
-
 
