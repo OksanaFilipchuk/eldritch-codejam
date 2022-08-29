@@ -442,8 +442,6 @@ function shuffleCards(){
   let blue;
   let brown;
 
-
-   console.log(greenNumbers, blueNumbers,brownNumbers) 
   if(document.querySelector(".button-level.active").getAttribute("id")==="veryEasy"){   
     green = formCardsIdColorVeryEasy(cardsGreen, greenNumbers);
     blue = formCardsIdColorVeryEasy(cardsBlue, blueNumbers);
