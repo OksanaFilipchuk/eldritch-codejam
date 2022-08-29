@@ -441,7 +441,9 @@ function shuffleCards(){
   let green;
   let blue;
   let brown;
-    
+
+
+   console.log(greenNumbers, blueNumbers,brownNumbers) 
   if(document.querySelector(".button-level.active").getAttribute("id")==="veryEasy"){   
     green = formCardsIdColorVeryEasy(cardsGreen, greenNumbers);
     blue = formCardsIdColorVeryEasy(cardsBlue, blueNumbers);
@@ -454,17 +456,23 @@ function shuffleCards(){
     brown = formCardsIdColorEasy(cardsBrown, brownNumbers);
   }
 
-  function formCardsIdColorEasy(src, elemNumbers){
-    let set = new Set;
-    let srcFiltred = src.filter(el => el.difficulty != 'hard');
-    while(set.size<elemNumbers){     
-      let random = Math.floor(Math.random()*srcFiltred.length);
-      set.add(srcFiltred[random])
-    }   
-    return Array.from(set)
+  if(document.querySelector(".button-level.active").getAttribute("id")==="normal"){   
+    green = formCardsIdColorNormal(cardsGreen, greenNumbers);
+    blue = formCardsIdColorNormal(cardsBlue, blueNumbers);
+    brown = formCardsIdColorNormal(cardsBrown, brownNumbers);
   }
 
+  if(document.querySelector(".button-level.active").getAttribute("id")==="hard"){   
+    green = formCardsIdColorHard(cardsGreen, greenNumbers);
+    blue = formCardsIdColorHard(cardsBlue, blueNumbers);
+    brown = formCardsIdColorHard(cardsBrown, brownNumbers);
+  }
 
+  if(document.querySelector(".button-level.active").getAttribute("id")==="veryHard"){   
+    green = formCardsIdColorVeryHard(cardsGreen, greenNumbers);
+    blue = formCardsIdColorVeryHard(cardsBlue, blueNumbers);
+    brown = formCardsIdColorVeryHard(cardsBrown, brownNumbers);
+  }
     
     function formCardsIdColorVeryEasy(src, elemNumbers){
       let arr = [];
@@ -480,15 +488,65 @@ function shuffleCards(){
       return arr
     }
 
+    function formCardsIdColorEasy(src, elemNumbers){
+      let set = new Set;
+      let srcFiltred = src.filter(el => el.difficulty != 'hard');
+      while(set.size<elemNumbers){     
+        let random = Math.floor(Math.random()*srcFiltred.length);
+        set.add(srcFiltred[random])
+      }   
+      return Array.from(set)
+    }
+
+    function formCardsIdColorNormal(src, elemNumbers){
+      let set = new Set;
+      while(set.size<elemNumbers){     
+        let random = Math.floor(Math.random()*src.length);
+        set.add(src[random])
+      }   
+      return Array.from(set)
+    }
+
+    function formCardsIdColorHard(src, elemNumbers){
+      let set = new Set;
+      let srcFiltred = src.filter(el => el.difficulty != 'easy');
+      while(set.size<elemNumbers){     
+        let random = Math.floor(Math.random()*srcFiltred.length);
+        set.add(srcFiltred[random])
+      }   
+      return Array.from(set)
+    }
+
+    function formCardsIdColorVeryHard(src, elemNumbers){
+      let arr =[];
+      let cardsHard = src.filter(element =>element.difficulty == "hard");
+      let cardsNormal = src.filter(element =>element.difficulty == "normal");
+      for(let i=0; i<elemNumbers; i++){
+        let randomHard = Math.floor(Math.random()*cardsHard.length);
+        let randomNormal = Math.floor(Math.random()*cardsNormal.length);
+        if(cardsHard.length){
+          arr.push(cardsHard[randomHard]);
+          cardsHard = cardsHard.filter(el =>el !=cardsHard[randomHard])
+        } else {
+          arr.push(cardsNormal[randomNormal]);
+          cardsNormal = cardsNormal.filter(el => el != cardsNormal[randomNormal])
+        } 
+        
+      }
+      return arr   
+    }
+
+
+
     let greenRest = green;
     let blueRest = blue;
-    let brownRest = brown;                        
-
+    let brownRest = brown;
+    
     for(let el = 0; el<3; el++){
       cardsBlockNumbers[el].forEach((element,index)=>{
         for (let i= 0; i<element; i++){
           if(index ===0){
-            let random = Math.floor(Math.random()*greenRest.length);                        
+            let random = Math.floor(Math.random()*greenRest.length); 
             cardsBlockCardId[el].push(greenRest[random]);
             greenRest = greenRest.filter(elem => elem != greenRest[random])                        
           }
@@ -513,6 +571,7 @@ function shuffleCards(){
 
 function fillCounter(){
  let copy = cardsBlockCardId;
+ 
  for(let i =0; i<3;i++){
     ["green", "brown", "blue"].forEach(el => {
         document.querySelector(`.stage${i+1} > .${el}Cards`).textContent = copy[i].filter(elem => elem.color === el).length.toString()
