@@ -1,3 +1,4 @@
+
 body {
   background-image: url("./assets/home.png");
   background-size: cover;
@@ -7,31 +8,33 @@ body {
 
 .ancients {
   width: 60%;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   row-gap: 20px;
+  position: relative;
 }
 
 .ancients-img {
-  max-width: 35%;
+  max-width: 200px;
   height: auto;
   transition: all 300ms ease-in-out;
   border: 2px solid transparent;
 }
 
 .ancients-img:hover {
-  transform: scale(1.15);
+  transform: scale(1.5);
 }
 
 .ancients-img.active {
   border: 2px solid red;
-  transform: scale(1.15)
+  transform: scale(1.5);  
 }
 
 .levels {
   display: flex;
-  flex-direction: column;
+  padding: 5px 40px;  
   align-items: center;
   justify-content: center;
   gap: 20px;
@@ -68,10 +71,16 @@ button.active {
 .cards {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
-  gap: 30px;
+  gap: 10px;
   min-width: 30%;
+}
+
+.deckWrapper{
+  display: flex;
+  justify-content: center;
+  gap: 20px
 }
 
 .colorCardsNumber {
@@ -82,6 +91,7 @@ button.active {
   display: inline-block;
   margin: 10px;
   text-align: center;
+  line-height: 28px;
   
 }
 
@@ -107,5 +117,4 @@ ul{
   margin: 0;
   padding: 0;
 }
-
 

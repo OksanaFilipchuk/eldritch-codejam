@@ -1,6 +1,5 @@
+
 const shuffleButton = document.querySelector('.shuffle');
-
-
 const ancients = document.querySelectorAll(".ancients-img");
 const levels = document.querySelectorAll(".button-level")
 
@@ -8,7 +7,9 @@ function changeActiveItem(event){
     let el = event.target;
     Array.from(el.parentElement.children).forEach(elem => elem.classList.remove("active"))
     el.classList.add("active");
-    shuffleButton.classList.remove("nonvisible");    
+    shuffleButton.classList.remove("nonvisible");
+    document.querySelector(".cardsDeck").classList.add("nonvisible");
+    document.querySelector(".nextCard").classList.add("nonvisible");
 }
 
 ancients.forEach(el => {
@@ -420,76 +421,94 @@ const ancientsData = [
 ]
 
 function shuffleCards(){
-    cardsBlockCardId[0] = [];
-    cardsBlockCardId[1] = [];
-    cardsBlockCardId[2] = [];
-    document.querySelector(".nextCard").classList.add("nonvisible")
-    const ancientActiveId = document.querySelector(".ancients-img.active").getAttribute("id");
-    let ancientActiveData = ancientsData.filter(el => el.id === ancientActiveId);
-    let cardsBlockNumbers = [
-        Object.values(ancientActiveData[0].firstStage),
-        Object.values(ancientActiveData[0].secondStage),
-        Object.values(ancientActiveData[0].thirdStage)
-    ]
+  cardsBlockCardId[0] = [];
+  cardsBlockCardId[1] = [];
+  cardsBlockCardId[2] = [];
+  document.querySelector(".nextCard").classList.add("nonvisible")
+  let ancientActiveId = document.querySelector(".ancients-img.active").getAttribute("id");
+  let ancientActiveData = ancientsData.filter(el => el.id === ancientActiveId);
+  let cardsBlockNumbers = [
+    Object.values(ancientActiveData[0].firstStage),
+    Object.values(ancientActiveData[0].secondStage),
+    Object.values(ancientActiveData[0].thirdStage)
+  ]
+
+                
+  let greenNumbers = cardsBlockNumbers[0][0]+cardsBlockNumbers[1][0]+cardsBlockNumbers[2][0];
+  let blueNumbers = cardsBlockNumbers[0][1]+cardsBlockNumbers[1][1]+cardsBlockNumbers[2][1]; 
+  let brownNumbers = cardsBlockNumbers[0][2]+cardsBlockNumbers[1][2]+cardsBlockNumbers[2][2];
+
+  let green;
+  let blue;
+  let brown;
     
-    if(document.querySelector(".button-level").getAttribute("id")==="veryEasy"){     
-        
-        let greenNumbers = cardsBlockNumbers[0][0]+cardsBlockNumbers[1][0]+cardsBlockNumbers[2][0];
-        let blueNumbers = cardsBlockNumbers[0][1]+cardsBlockNumbers[1][1]+cardsBlockNumbers[2][1]; 
-        let brownNumbers = cardsBlockNumbers[0][2]+cardsBlockNumbers[1][2]+cardsBlockNumbers[2][2]; 
-        let green = formCardsIdColor(cardsGreen, greenNumbers);
-        let blue = formCardsIdColor(cardsBlue, blueNumbers);
-        let brown = formCardsIdColor(cardsBrown, brownNumbers);
+  if(document.querySelector(".button-level.active").getAttribute("id")==="veryEasy"){   
+    green = formCardsIdColorVeryEasy(cardsGreen, greenNumbers);
+    blue = formCardsIdColorVeryEasy(cardsBlue, blueNumbers);
+    brown = formCardsIdColorVeryEasy(cardsBrown, brownNumbers);
+  }
 
-        
-      
-        function formCardsIdColor(src, elemNumbers){
-            let arr = [];
-            let cardsEasy = src.filter(element =>element.difficulty === "easy");
-            let cardsNormal = src.filter(element =>element.difficulty === "normal");
-            for(let i=0; i<elemNumbers; i++){                
-                let randomEasy = Math.floor(Math.random()*cardsEasy.length);
-                let randomNormal = Math.floor(Math.random()*cardsNormal.length);                
-                cardsEasy.length?arr.push(cardsEasy[randomEasy]):arr.push(cardsNormal[randomNormal]);
-                cardsEasy = cardsEasy.filter(element => element != cardsEasy[randomEasy]);
-                cardsNormal = cardsNormal.filter(element => element != cardsNormal[randomNormal]);
-            }
-            return arr
-        }
-        
-        
-        let greenRest = green;
-        let blueRest = blue;
-        let brownRest = brown;                        
+  if(document.querySelector(".button-level.active").getAttribute("id")==="easy"){   
+    green = formCardsIdColorEasy(cardsGreen, greenNumbers);
+    blue = formCardsIdColorEasy(cardsBlue, blueNumbers);
+    brown = formCardsIdColorEasy(cardsBrown, brownNumbers);
+  }
 
-        for(let el = 0; el<3; el++){
-            cardsBlockNumbers[el].forEach((element,index)=>{
-                for (let i= 0; i<element; i++){
-                    if(index ===0){
-                        let random = Math.floor(Math.random()*greenRest.length);                        
-                        cardsBlockCardId[el].push(greenRest[random]);
-                        greenRest = greenRest.filter(elem => elem != greenRest[random])                        
-                    }
-                    if(index ===1){
-                        let random = Math.floor(Math.random()*blueRest.length);                        
-                        cardsBlockCardId[el].push(blueRest[random]);
-                        blueRest = blueRest.filter(elem=> elem != blueRest[random]);                        
-                    }
-                    if(index ===2){
-                        let random = Math.floor(Math.random()*brownRest.length);                        
-                        cardsBlockCardId[el].push(brownRest[random]);
-                        brownRest = brownRest.filter(elem=> elem != brownRest[random]);                        
-                    }                
-                    
-                }
-            })        
-           
-
-        }        
+  function formCardsIdColorEasy(src, elemNumbers){
+    let set = new Set;
+    let srcFiltred = src.filter(el => el.difficulty != 'hard');
+    while(set.size<elemNumbers){     
+      let random = Math.floor(Math.random()*srcFiltred.length);
+      set.add(srcFiltred[random])
     }   
-    document.querySelector('.cardBackground').classList.remove('nonvisible');
-    fillCounter()
+    return Array.from(set)
+  }
 
+
+    
+    function formCardsIdColorVeryEasy(src, elemNumbers){
+      let arr = [];
+      let cardsEasy = src.filter(element =>element.difficulty === "easy");
+      let cardsNormal = src.filter(element =>element.difficulty === "normal");
+      for(let i=0; i<elemNumbers; i++){                
+        let randomEasy = Math.floor(Math.random()*cardsEasy.length);
+        let randomNormal = Math.floor(Math.random()*cardsNormal.length);                
+        cardsEasy.length?arr.push(cardsEasy[randomEasy]):arr.push(cardsNormal[randomNormal]);
+        cardsEasy = cardsEasy.filter(element => element != cardsEasy[randomEasy]);
+        cardsNormal = cardsNormal.filter(element => element != cardsNormal[randomNormal]);
+      }
+      return arr
+    }
+
+    let greenRest = green;
+    let blueRest = blue;
+    let brownRest = brown;                        
+
+    for(let el = 0; el<3; el++){
+      cardsBlockNumbers[el].forEach((element,index)=>{
+        for (let i= 0; i<element; i++){
+          if(index ===0){
+            let random = Math.floor(Math.random()*greenRest.length);                        
+            cardsBlockCardId[el].push(greenRest[random]);
+            greenRest = greenRest.filter(elem => elem != greenRest[random])                        
+          }
+          if(index ===1){
+            let random = Math.floor(Math.random()*blueRest.length);                        
+            cardsBlockCardId[el].push(blueRest[random]);
+            blueRest = blueRest.filter(elem=> elem != blueRest[random]);                        
+          }
+          if(index ===2){
+            let random = Math.floor(Math.random()*brownRest.length);                        
+            cardsBlockCardId[el].push(brownRest[random]);
+            brownRest = brownRest.filter(elem=> elem != brownRest[random]);                        
+          }            
+        }
+      })   
+    }       
+  
+
+  document.querySelector('.cardBackground').classList.remove('nonvisible');
+  fillCounter()
 }
 
 function fillCounter(){
@@ -499,10 +518,8 @@ function fillCounter(){
         document.querySelector(`.stage${i+1} > .${el}Cards`).textContent = copy[i].filter(elem => elem.color === el).length.toString()
     })
  }
- 
-    
-
 }
+
 function showNextCard(){
     function showCardsFromStage(stageIndex){
         let random = Math.floor(Math.random()*cardsBlockCardId[stageIndex].length)
@@ -518,18 +535,16 @@ function showNextCard(){
     }else if(cardsBlockCardId[1].length){
         showCardsFromStage(1)
     }else if(cardsBlockCardId[2].length){
-        showCardsFromStage(2)
-    }else if(!cardsBlockCardId[2].length){
+        showCardsFromStage(2)        
+    }
+    
+    if(cardsBlockCardId[2].length===0){
         document.querySelector(".cardsDeck").classList.add("nonvisible")
     }
-    fillCounter()
-    
-   
-    
+
+    fillCounter()    
 }
 
 shuffleButton.addEventListener("click", shuffleCards)
-
 document.querySelector(".cardsDeck").addEventListener("click", showNextCard)
-
 
